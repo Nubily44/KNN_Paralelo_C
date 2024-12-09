@@ -5,6 +5,7 @@
 #include <strings.h> // Strings
 #include <limits.h> // Limites
 #include <omp.h>    // OpenMP
+#include <time.h> // Tempo
 
 // Parametros
 #define K 3
@@ -73,8 +74,7 @@ double * KNN (double** xTrain, double** xTest, double* yTrain, int train_numrows
 
      for(int i = 0; i < test_numrows; i++){
 
-          vetor_distancias = calculaDistancias(xTrain, xTest[i], train_numrows);  
-          printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
+          vetor_distancias = calculaDistancias(xTrain, xTest[i], train_numrows);
           double soma = 0;
           for(int j = 0; j<K; j++){
                double menor = INT_MAX;
@@ -92,7 +92,8 @@ double * KNN (double** xTrain, double** xTest, double* yTrain, int train_numrows
                soma += yTrain[indicemenor];             
           }
           y_test[i] = soma/K;
-
+          
+          //free(vetor_distancias); // trava quando utilizando 100000 elementos de teste
      }
 
      return y_test;
@@ -103,14 +104,14 @@ double * KNN (double** xTrain, double** xTest, double* yTrain, int train_numrows
 
 int main(int argc,char *argv[]){
 
-     /*FILE *filetempo;
+     FILE *filetempo;
      filetempo = fopen("tempos.txt", "w");
 
      if (argc != 3) {
           printf("Uso correto: %s <xtrain_datapath> <xtest_datapath> (que varia para cada teste)\n", argv[0]);
           return 1;
      }
-     */
+     
      int test_count;
      printf("Quantos testes serão realizados?\n");
      scanf("%d", &test_count);
@@ -135,19 +136,22 @@ int main(int argc,char *argv[]){
      double *bufferTrain = (double *) malloc(TRAIN_COUNT * sizeof(double));
      double *bufferTest = (double *) malloc(test_count * sizeof(double));
 
-     argv[2] = "dados_xtrain.txt";
-     argv[3] = "dados_xtest_10.txt";
-
      bufferTrain = lerArquivo(argv[2], TRAIN_COUNT);
      bufferTest = lerArquivo(argv[3], test_count);
 
      criaMatrizes(xTrain, yTrain, xTest, bufferTrain, bufferTest, test_count);
 
+     clock_t start_time, end_time;
+     double tempo_usado;
+     start_time = clock();
+
      yTest = KNN(xTrain, xTest, yTrain, train_nrows, test_nrows);
 
-     for (int i = 0 ; i < test_nrows; i++){
-          printf("%lf\n", yTest[i]);
-     }
+     end_time = clock();
+
+     tempo_usado = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
+
+     printf("Tempo de execução: %lf\n", tempo_usado);
 
      return 0;
 }
