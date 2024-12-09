@@ -1,5 +1,5 @@
-# KNN-Asm-MIPS
-KNN em Assembly MIPS
+# KNN-Paralelo_C
+KNN em C utilizando Open MP em C
 
 ## Integrantes do Grupo: 
 - Aline Crispim de Moraes - 14567051 
