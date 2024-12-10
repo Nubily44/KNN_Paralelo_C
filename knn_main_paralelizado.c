@@ -100,9 +100,6 @@ double * KNN (double** xTrain, double** xTest, double* yTrain, int train_numrows
      return y_test;
 }
 
- 
-
-
 int main(int argc,char *argv[]){
 
      omp_set_num_threads(NUM_THREADS);
