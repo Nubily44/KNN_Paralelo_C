@@ -170,7 +170,7 @@ int main(int argc,char *argv[]){
 
      double tempo_usado = (end_time - start_time)/5;
 
-     printf("Tempo de execucao: %lf\n", tempo_usado);
+     printf("Tempo de execucao: %lf segundos\n", tempo_usado);
 
 
      // Escrita dos resultados
