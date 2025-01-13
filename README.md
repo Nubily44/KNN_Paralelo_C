@@ -1,5 +1,5 @@
 # KNN-Paralelo_C
-KNN em C utilizando Open MP em C
+KNN em C sequencial e paralelizado utilizando OpenMP
 
 ## Integrantes do Grupo: 
 - Aline Crispim de Moraes - 14567051 
